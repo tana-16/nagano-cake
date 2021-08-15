@@ -10,13 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_15_035728) do
+ActiveRecord::Schema.define(version: 2021_08_15_072307) do
 
   create_table "admins", force: :cascade do |t|
-    t.string "email"
-    t.string "encrypted_password"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_admins_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
   create_table "adres", force: :cascade do |t|
@@ -38,18 +43,23 @@ ActiveRecord::Schema.define(version: 2021_08_15_035728) do
   end
 
   create_table "clients", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.string "last_name"
     t.string "first_neme"
     t.string "kana_last_name"
-    t.string "kana_first_neme"
-    t.string "email"
-    t.string "encrypted_password"
+    t.string "kana_first_name"
     t.string "postal_code"
     t.string "address"
     t.string "telephone_number"
-    t.integer "user_status"
+    t.string "user_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_clients_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
   end
 
   create_table "genres", force: :cascade do |t|
